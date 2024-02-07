@@ -1,0 +1,10 @@
+.form_container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+}
