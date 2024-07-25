@@ -1,0 +1,61 @@
+{% extends 'todolist/base.html' %}
+
+{% block title %}
+  Todo List
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+  <main class="container px-5 md:px-16 lg:px-24">
+    <p class="text-xl font-semibold text-center text-gray-700">Create Todo List</p>
+    <form action="{% url 'home_page' %}" method="post" class="p-5 py-12 mt-10 border rounded-lg">
+      {% csrf_token %}
+      <div class="flex flex-col gap-4">
+        {% for field in form %}
+          <div>
+            <div>
+              {% render_field field.label %}
+            </div>
+            <div>
+              {% render_field field class='mt-2 w-[90%] md:w-[60%] lg:w-[50%] rounded-lg' %}
+            </div>
+            <div>
+              {% if field.error %}
+                {% render_field field.errors %}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <input type="submit" value="Add" class="py-2 mt-4 font-semibold text-white duration-200 border rounded-lg cursor-pointer px-7 bg-slate-600 hover:bg-gray-700" />
+    </form>
+    <div class="mt-5">
+      {% if todos %}
+        <p class="mb-6 text-2xl font-semibold text-gray-600">Todos</p>
+        {% for todo in todos %}
+          <div class="flex flex-wrap items-center justify-between gap-4 px-5 py-3 mt-3 border rounded-lg">
+            <div>
+              <p>{{ todo.title }}</p>
+            </div>
+            <div>
+              <p>
+                Deadline: <span class="font-semibold">{{ todo.deadline }}</span>
+              </p>
+            </div>
+            <div class="flex items-center gap-5">
+              <form action="{% url 'todo_edit_page' todo.id %}" method="get">
+                <button type="submit" class="px-6 py-1 duration-300 bg-yellow-500 rounded hover:bg-yellow-600">Edit</button>
+              </form>
+              <form action="{% url 'todo_delete_page' todo.id %}" method="get">
+                <button type="submit" class="px-6 py-1 duration-300 bg-red-500 rounded hover:bg-red-600">Delete</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="text-xl font-semibold text-yellow-500">No Todos</p>
+      {% endif %}
+    </div>
+  </main>
+{% endblock %}

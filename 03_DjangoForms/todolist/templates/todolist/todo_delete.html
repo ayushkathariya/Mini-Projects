@@ -1,0 +1,20 @@
+{% extends 'todolist/base.html' %}
+
+{% block title %}
+  Delete Todo List
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+  <main class="container px-5 md:px-16 lg:px-24">
+    <p class="mt-4 text-2xl font-semibold">Are you sure to delete {{ task.title }} ?</p>
+    <div class="flex items-center gap-3 mt-3">
+      <form action="{% url 'todo_delete_page' todo.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="px-6 py-1 duration-300 bg-red-500 rounded hover:bg-red-600">Delete</button>
+      </form>
+      <a href="{% url 'home_page' %}" class="px-6 py-1 duration-300 bg-gray-500 rounded hover:bg-gray-600">Go Back</a>
+    </div>
+  </main>
+{% endblock %}

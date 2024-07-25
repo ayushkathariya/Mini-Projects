@@ -1,0 +1,27 @@
+{% extends 'todolist/base.html' %}
+
+{% block title %}
+  Delete form List
+{% endblock %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+  <main class="container w-full px-5 md:px-16 lg:px-24">
+    <div class="flex items-center gap-3 mt-3">
+      <form action="{% url 'todo_edit_page' todo.id %}" method="post" class="w-full p-5 py-12 mt-10 border rounded-lg">
+        {% csrf_token %}
+        {% for field in form %}
+          <div>
+            {% render_field field.label_tag %}
+          </div>
+          <div class="mt-2">
+            {% render_field field class='mt-1 w-[90%] md:w-[60%] lg:w-[50%] rounded-lg' %}
+          </div>
+        {% endfor %}
+        <input type="submit" value="Save" class="py-2 mt-4 font-semibold text-white duration-200 bg-green-600 border rounded-lg cursor-pointer px-7 hover:bg-green-700" />
+        <a href="{% url 'home_page' %}" class="py-2 mt-4 font-semibold text-white duration-200 border rounded-lg cursor-pointer px-7 bg-slate-600 hover:bg-gray-700">Go Back</a>
+      </form>
+    </div>
+  </main>
+{% endblock %}
