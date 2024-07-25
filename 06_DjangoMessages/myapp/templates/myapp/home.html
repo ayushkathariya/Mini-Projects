@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .success {
+        color: green;
+      }
+      
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    {% if form %}
+      <form action="{% url 'home_page' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add" />
+      </form>
+    {% endif %}
+    <div style="margin-top: 20px;">
+      {% if messages %}
+        {% for message in messages %}
+          <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </body>
+</html>
